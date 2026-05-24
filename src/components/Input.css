@@ -1,0 +1,40 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: calc(var(--spacing-base) * 2);
+  width: 100%;
+}
+
+.input-label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-surface);
+  margin-bottom: var(--spacing-base);
+}
+
+.custom-input {
+  min-height: var(--touch-target-min);
+  padding: 0 16px;
+
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius);
+
+  font-family: var(--font-family);
+  font-size: var(--font-body-size);
+  color: var(--on-surface);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.custom-input::placeholder {
+  color: var(--outline);
+}
+
+.custom-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}

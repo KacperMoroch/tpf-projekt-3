@@ -1,0 +1,33 @@
+.btn {
+  min-height: var(--touch-target-min);
+  padding: 0 24px;
+  border: none;
+  border-radius: var(--radius);
+
+  font-family: var(--font-family);
+  font-size: var(--font-body-size);
+  font-weight: 600;
+
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-base);
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-cta {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
