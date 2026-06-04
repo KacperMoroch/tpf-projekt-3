@@ -1,35 +1,44 @@
 import React from 'react';
-import SzczegolyPrzepisu from './pages/SzczegolyPrzepisu'; 
-import PrzepisyPage from './pages/PrzepisyPage'; 
-import UlubionePage from './pages/UlubionePage'; 
-import ProfilePage from './pages/ProfilePage'; 
-import './App.css'; 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.css';
+
+import { AuthProvider } from "./auth/AuthContext";
+import { PrivateRoute } from "./auth/PrivateRoute";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ForgotPassword from "./pages/ForgotPassword";
+import LodowkaPage from "./pages/LodowkaPage";
+
+import SzczegolyPrzepisu from './pages/SzczegolyPrzepisu';
+import PrzepisyPage from './pages/PrzepisyPage';
+import UlubionePage from './pages/UlubionePage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
-    <div className="app-gallery">
-      
-      {/* Szczegóły Przepisu */}
-      <div className="mobile-mockup">
-        <SzczegolyPrzepisu /> 
-      </div>
+    <AuthProvider>
+      <div className="app-gallery">
 
-      {/* Główna lista Przepisów */}
-      <div className="mobile-mockup">
-        <PrzepisyPage /> 
-      </div>
+        <div className="mobile-mockup">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/logowanie" element={<LoginPage />} />
+              <Route path="/rejestracja" element={<RegisterPage />} />
+              <Route path="/zapomnialem-hasla" element={<ForgotPassword />} />
 
-      {/* Ulubione */}
-      <div className="mobile-mockup">
-        <UlubionePage /> 
-      </div>
+              <Route path="/lodowka" element={<PrivateRoute><LodowkaPage /></PrivateRoute>} />
 
-      {/* Profil */}
-      <div className="mobile-mockup">
-        <ProfilePage /> 
-      </div>
+              <Route path="/przepisy" element={<PrivateRoute><PrzepisyPage /></PrivateRoute>} />
+              <Route path="/przepis/:id" element={<PrivateRoute><SzczegolyPrzepisu /></PrivateRoute>} />
+              <Route path="/ulubione" element={<PrivateRoute><UlubionePage /></PrivateRoute>} />
+              <Route path="/profil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+            </Routes>
+          </BrowserRouter>
+        </div>
 
-    </div>
+      </div>
+    </AuthProvider>
   );
 }
 

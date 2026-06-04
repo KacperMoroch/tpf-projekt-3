@@ -1,26 +1,32 @@
 .app-gallery {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 40px; 
+  flex-wrap: wrap;
+  gap: 40px;
   padding: 40px;
-  background-color: #e2e8f0; 
+  background-color: #e2e8f0;
   min-height: 100vh;
-  justify-content: center; 
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-mockup {
-  width: 375px; 
-  height: 812px; 
-  border: 14px solid #1e293b; 
-  border-radius: 40px; 
-  overflow: hidden; 
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3); 
-  background-color: var(--background);
+  width: 375px;
+  height: 812px;
+  border: 14px solid #1e293b;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  background-color: var(--background, #faf8f0);
   position: relative;
 }
 
-.mobile-mockup > div {
+.mobile-mockup>div {
   height: 100% !important;
   width: 100% !important;
+  overflow-y: auto;
+}
+
+.mobile-mockup>div::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
