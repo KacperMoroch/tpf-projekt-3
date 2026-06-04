@@ -13,7 +13,7 @@ import SzczegolyPrzepisu from "./pages/SzczegolyPrzepisu";
 import PrzepisyPage from "./pages/PrzepisyPage";
 import UlubionePage from "./pages/UlubionePage";
 import ProfilePage from "./pages/ProfilePage";
-import ListaZakupowPage from "./pages/ListaZakupowPage";
+import ListaZakupow from "./pages/ListaZakupow";
 
 function App() {
   return (
@@ -71,7 +71,7 @@ function App() {
                 path="/zakupy"
                 element={
                   <PrivateRoute>
-                    <ListaZakupowPage />
+                    <ListaZakupow />
                   </PrivateRoute>
                 }
               />
