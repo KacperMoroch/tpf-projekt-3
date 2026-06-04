@@ -15,6 +15,7 @@ import UlubionePage from "./pages/UlubionePage";
 import ProfilePage from "./pages/ProfilePage";
 import ListaZakupow from "./pages/ListaZakupow";
 import SkanujParagon from "./pages/SkanujParagon";
+import SkanujKod from "./pages/SkanujKod";
 
 function App() {
   return (
@@ -81,6 +82,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <SkanujParagon onClose={() => window.history.back()} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/skanuj-kod"
+                element={
+                  <PrivateRoute>
+                    <SkanujKod onClose={() => window.history.back()} />
                   </PrivateRoute>
                 }
               />

@@ -86,7 +86,6 @@ export default function MojaLodowka() {
 
   return (
     <div className="app-container">
-      {/* Top Navbar */}
       <header className="mock-topbar">
         <span style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
           ≡
@@ -131,7 +130,7 @@ export default function MojaLodowka() {
 
           <button
             className="action-btn"
-            onClick={() => setCurrentScreen("scanCode")}
+            onClick={() => navigate("/skanuj-kod")}
           >
             <div className="action-icon">
               <svg
