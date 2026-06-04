@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import Icon from "../components/Icon"; 
-import BottomNav from "../components/BottomNav"; 
+import Icon from "../components/Icon";
+import BottomNav from "../components/BottomNav";
 import "./ProfilePage.css";
+import { useLocation } from "react-router-dom";
 
 const ProfilePage = () => {
-  const [currentView, setCurrentView] = useState("main");
+  const location = useLocation();
+  const [currentView, setCurrentView] = useState(
+    location.state?.openView || "main",
+  );
   const [activeDiets, setActiveDiets] = useState(["Bez glutenu", "Wegańska"]);
   const [notifications, setNotifications] = useState({
     mainAlerts: true,
     expiry: true,
     newRecipes: false,
     shopping: true,
-    zeroWaste: true
+    zeroWaste: true,
   });
 
   const toggleDiet = (dietName) => {
@@ -29,7 +33,7 @@ const ProfilePage = () => {
   const toggleNotification = (key) => {
     setNotifications((prev) => ({
       ...prev,
-      [key]: !prev[key]
+      [key]: !prev[key],
     }));
   };
 
@@ -58,22 +62,33 @@ const ProfilePage = () => {
 
       <div className="menu-list">
         <div className="menu-item" onClick={() => setCurrentView("edit")}>
-          <span className="menu-icon"><Icon name="profile" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="profile" size={20} />
+          </span>
           <span className="menu-text">Zmień dane</span>
           <span className="menu-chevron">›</span>
         </div>
         <div className="menu-item" onClick={() => setCurrentView("allergies")}>
-          <span className="menu-icon"><Icon name="utensils" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="utensils" size={20} />
+          </span>
           <span className="menu-text">Ustaw alergie i dietę</span>
           <span className="menu-chevron">›</span>
         </div>
-        <div className="menu-item" onClick={() => setCurrentView("notifications")}>
-          <span className="menu-icon"><Icon name="bell" size={20} /></span>
+        <div
+          className="menu-item"
+          onClick={() => setCurrentView("notifications")}
+        >
+          <span className="menu-icon">
+            <Icon name="bell" size={20} />
+          </span>
           <span className="menu-text">Powiadomienia</span>
           <span className="menu-chevron">›</span>
         </div>
         <div className="menu-item" onClick={() => setCurrentView("support")}>
-          <span className="menu-icon"><Icon name="help" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="help" size={20} />
+          </span>
           <span className="menu-text">Pomoc i wsparcie</span>
           <span className="menu-chevron">›</span>
         </div>
@@ -85,7 +100,7 @@ const ProfilePage = () => {
     </>
   );
 
-  // Ekran zmień dane 
+  // Ekran zmień dane
   const renderEditView = () => (
     <>
       <div className="subpage-header">
@@ -108,16 +123,21 @@ const ProfilePage = () => {
 
       <form onSubmit={(e) => e.preventDefault()}>
         <Input label="Imię i Nazwisko" placeholder="Jakub Kowalski" />
-        <Input label="Adres Email" type="email" placeholder="jakub.kowalski@email.com" />
+        <Input
+          label="Adres Email"
+          type="email"
+          placeholder="jakub.kowalski@email.com"
+        />
         <Input label="Hasło" type="password" placeholder="********" />
 
         <div className="info-box">
-          <span>ⓘ</span> Zalecamy używanie silnego hasła składającego się z co najmniej 8 znaków, w tym cyfr i znaków specjalnych.
+          <span>ⓘ</span> Zalecamy używanie silnego hasła składającego się z co
+          najmniej 8 znaków, w tym cyfr i znaków specjalnych.
         </div>
 
-        <Button 
-          variant="cta" 
-          className="full-width-btn" 
+        <Button
+          variant="cta"
+          className="full-width-btn"
           onClick={() => setCurrentView("main")}
         >
           Zapisz zmiany
@@ -135,18 +155,20 @@ const ProfilePage = () => {
         </button>
         <h2>Ustawienia i Pomoc</h2>
       </div>
-      <p className="subpage-desc">
-        Dostosuj aplikację do swoich potrzeb
-      </p>
+      <p className="subpage-desc">Dostosuj aplikację do swoich potrzeb</p>
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon"><Icon name="bell" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="bell" size={20} />
+          </span>
           <div className="settings-item-content">
             <div className="settings-item-title">Powiadomienia</div>
-            <div className="settings-item-desc">Przypomnienia o terminach ważności</div>
+            <div className="settings-item-desc">
+              Przypomnienia o terminach ważności
+            </div>
           </div>
-          <div 
+          <div
             className={`toggle-switch ${!notifications.mainAlerts ? "inactive" : ""}`}
             onClick={() => toggleNotification("mainAlerts")}
           ></div>
@@ -155,17 +177,23 @@ const ProfilePage = () => {
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon"><Icon name="help" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="help" size={20} />
+          </span>
           <div className="settings-item-title">FAQ</div>
           <div className="settings-item-action">›</div>
         </div>
         <div className="settings-item">
-          <span className="menu-icon"><Icon name="file" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="file" size={20} />
+          </span>
           <div className="settings-item-title">Regulamin</div>
           <div className="settings-item-action">›</div>
         </div>
         <div className="settings-item">
-          <span className="menu-icon"><Icon name="shield" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="shield" size={20} />
+          </span>
           <div className="settings-item-title">Polityka prywatności</div>
           <div className="settings-item-action">›</div>
         </div>
@@ -173,13 +201,19 @@ const ProfilePage = () => {
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon"><Icon name="globe" size={20} /></span>
+          <span className="menu-icon">
+            <Icon name="globe" size={20} />
+          </span>
           <div className="settings-item-title">Język</div>
           <div className="settings-item-action green">Polski</div>
         </div>
         <div className="settings-item">
-          <span className="menu-icon" style={{color: '#e11d48'}}><Icon name="logout" size={20} /></span>
-          <div className="settings-item-title" style={{color: '#e11d48'}}>Wyloguj się</div>
+          <span className="menu-icon" style={{ color: "#e11d48" }}>
+            <Icon name="logout" size={20} />
+          </span>
+          <div className="settings-item-title" style={{ color: "#e11d48" }}>
+            Wyloguj się
+          </div>
         </div>
       </div>
 
@@ -203,48 +237,72 @@ const ProfilePage = () => {
         Dostosujemy przepisy do Twoich potrzeb zdrowotnych i preferencji.
       </p>
 
-      <div className="hero-banner" style={{ 
-        background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80") center/cover' 
-      }}>
-        <h3 style={{ color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Zdrowe wybory</h3>
+      <div
+        className="hero-banner"
+        style={{
+          background:
+            'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80") center/cover',
+        }}
+      >
+        <h3 style={{ color: "white", textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}>
+          Zdrowe wybory
+        </h3>
       </div>
 
       <div className="options-section-title">Dostępne opcje</div>
-      
+
       <div className="chips-grid">
-        <div className={`chip ${activeDiets.includes("Bez laktozy") ? "active" : ""}`} onClick={() => toggleDiet("Bez laktozy")}>
+        <div
+          className={`chip ${activeDiets.includes("Bez laktozy") ? "active" : ""}`}
+          onClick={() => toggleDiet("Bez laktozy")}
+        >
           Bez laktozy
         </div>
-        <div className={`chip ${activeDiets.includes("Bez glutenu") ? "active" : ""}`} onClick={() => toggleDiet("Bez glutenu")}>
+        <div
+          className={`chip ${activeDiets.includes("Bez glutenu") ? "active" : ""}`}
+          onClick={() => toggleDiet("Bez glutenu")}
+        >
           Bez glutenu
         </div>
-        <div className={`chip ${activeDiets.includes("Wegetariańska") ? "active" : ""}`} onClick={() => toggleDiet("Wegetariańska")}>
+        <div
+          className={`chip ${activeDiets.includes("Wegetariańska") ? "active" : ""}`}
+          onClick={() => toggleDiet("Wegetariańska")}
+        >
           Wegetariańska
         </div>
-        <div className={`chip ${activeDiets.includes("Wegańska") ? "active" : ""}`} onClick={() => toggleDiet("Wegańska")}>
+        <div
+          className={`chip ${activeDiets.includes("Wegańska") ? "active" : ""}`}
+          onClick={() => toggleDiet("Wegańska")}
+        >
           Wegańska
         </div>
-        <div className={`chip ${activeDiets.includes("Keto") ? "active" : ""}`} onClick={() => toggleDiet("Keto")}>
+        <div
+          className={`chip ${activeDiets.includes("Keto") ? "active" : ""}`}
+          onClick={() => toggleDiet("Keto")}
+        >
           Keto
         </div>
-        <div className={`chip ${activeDiets.includes("Niskie IG") ? "active" : ""}`} onClick={() => toggleDiet("Niskie IG")}>
+        <div
+          className={`chip ${activeDiets.includes("Niskie IG") ? "active" : ""}`}
+          onClick={() => toggleDiet("Niskie IG")}
+        >
           Niskie IG
         </div>
       </div>
 
-      <Button 
-        variant="cta" 
-        className="full-width-btn" 
+      <Button
+        variant="cta"
+        className="full-width-btn"
         onClick={() => setCurrentView("main")}
-        style={{ 
-          backgroundColor: '#f59e0b', 
-          color: '#ffffff', 
-          border: 'none', 
-          boxShadow: '0 4px 12px rgba(245, 158, 11, 0.2)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '8px'
+        style={{
+          backgroundColor: "#f59e0b",
+          color: "#ffffff",
+          border: "none",
+          boxShadow: "0 4px 12px rgba(245, 158, 11, 0.2)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "8px",
         }}
       >
         <Icon name="file" size={18} fill="currentColor" /> Zapisz preferencje
@@ -264,59 +322,95 @@ const ProfilePage = () => {
         </button>
         <h2>Powiadomienia</h2>
       </div>
-      <p className="subpage-desc">
-        Zarządzaj swoją kuchnią efektywnie
-      </p>
+      <p className="subpage-desc">Zarządzaj swoją kuchnią efektywnie</p>
 
-      <div className="hero-banner" style={{ background: 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80") center/cover' }}>
+      <div
+        className="hero-banner"
+        style={{
+          background:
+            'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&q=80") center/cover',
+        }}
+      >
         <h3>Powiadomienia</h3>
       </div>
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon" style={{color: '#4ade80'}}><Icon name="calendar" size={20} /></span>
+          <span className="menu-icon" style={{ color: "#4ade80" }}>
+            <Icon name="calendar" size={20} />
+          </span>
           <div className="settings-item-content">
             <div className="settings-item-title">Terminy ważności</div>
-            <div className="settings-item-desc">Przypomnienia o kończącej się dacie spożycia</div>
+            <div className="settings-item-desc">
+              Przypomnienia o kończącej się dacie spożycia
+            </div>
           </div>
-          <div className={`toggle-switch ${!notifications.expiry ? "inactive" : ""}`} onClick={() => toggleNotification("expiry")}></div>
+          <div
+            className={`toggle-switch ${!notifications.expiry ? "inactive" : ""}`}
+            onClick={() => toggleNotification("expiry")}
+          ></div>
         </div>
       </div>
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon" style={{color: '#fbbf24'}}><Icon name="utensils" size={20} /></span>
+          <span className="menu-icon" style={{ color: "#fbbf24" }}>
+            <Icon name="utensils" size={20} />
+          </span>
           <div className="settings-item-content">
             <div className="settings-item-title">Nowe przepisy</div>
-            <div className="settings-item-desc">Inspiracje dopasowane do Twojej lodówki</div>
+            <div className="settings-item-desc">
+              Inspiracje dopasowane do Twojej lodówki
+            </div>
           </div>
-          <div className={`toggle-switch ${!notifications.newRecipes ? "inactive" : ""}`} onClick={() => toggleNotification("newRecipes")}></div>
+          <div
+            className={`toggle-switch ${!notifications.newRecipes ? "inactive" : ""}`}
+            onClick={() => toggleNotification("newRecipes")}
+          ></div>
         </div>
       </div>
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon" style={{color: '#4ade80'}}><Icon name="cart" size={20} /></span>
+          <span className="menu-icon" style={{ color: "#4ade80" }}>
+            <Icon name="cart" size={20} />
+          </span>
           <div className="settings-item-content">
             <div className="settings-item-title">Przypomnienia o zakupach</div>
-            <div className="settings-item-desc">Alerty o brakujących składnikach</div>
+            <div className="settings-item-desc">
+              Alerty o brakujących składnikach
+            </div>
           </div>
-          <div className={`toggle-switch ${!notifications.shopping ? "inactive" : ""}`} onClick={() => toggleNotification("shopping")}></div>
+          <div
+            className={`toggle-switch ${!notifications.shopping ? "inactive" : ""}`}
+            onClick={() => toggleNotification("shopping")}
+          ></div>
         </div>
       </div>
 
       <div className="settings-group">
         <div className="settings-item">
-          <span className="menu-icon" style={{color: '#f43f5e'}}><Icon name="leaf" size={20} /></span>
+          <span className="menu-icon" style={{ color: "#f43f5e" }}>
+            <Icon name="leaf" size={20} />
+          </span>
           <div className="settings-item-content">
             <div className="settings-item-title">Alerty zero-waste</div>
-            <div className="settings-item-desc">Sugestie jak wykorzystać nadmiar produktów</div>
+            <div className="settings-item-desc">
+              Sugestie jak wykorzystać nadmiar produktów
+            </div>
           </div>
-          <div className={`toggle-switch ${!notifications.zeroWaste ? "inactive" : ""}`} onClick={() => toggleNotification("zeroWaste")}></div>
+          <div
+            className={`toggle-switch ${!notifications.zeroWaste ? "inactive" : ""}`}
+            onClick={() => toggleNotification("zeroWaste")}
+          ></div>
         </div>
       </div>
 
-      <Button variant="cta" className="full-width-btn" onClick={() => setCurrentView("main")}>
+      <Button
+        variant="cta"
+        className="full-width-btn"
+        onClick={() => setCurrentView("main")}
+      >
         Zatwierdź
       </Button>
       <div className="bottom-info-text">
@@ -328,12 +422,24 @@ const ProfilePage = () => {
   // Główny render pliku
   return (
     <div className="page-wrapper">
-      
       <header className="mock-topbar">
-        <div style={{fontSize: '24px', cursor: 'pointer', lineHeight: '1'}}>≡</div>
+        <div style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
+          ≡
+        </div>
         <div>Fridge2Table</div>
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Icon name="profile" size={24} fill="var(--primary)" color="var(--primary)" />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon
+            name="profile"
+            size={24}
+            fill="var(--primary)"
+            color="var(--primary)"
+          />
         </div>
       </header>
 
@@ -346,7 +452,6 @@ const ProfilePage = () => {
       </main>
 
       <BottomNav currentTab="profil" />
-      
     </div>
   );
 };

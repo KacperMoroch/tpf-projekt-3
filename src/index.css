@@ -15,6 +15,26 @@
   --radius: 16px;
   --spacing-base: 8px;
   --touch-target-min: 48px;
+  --ml-border-light: #eef1f5;
+  --ml-border-dark: #e0e4e8;
+  --ml-text-primary: #333333;
+  --ml-text-secondary: #555555;
+  --ml-text-tertiary: #777777;
+  --ml-text-nav: #888888;
+  --ml-text-placeholder: #aaaaaa;
+  --ml-icon-muted: #999999;
+  --ml-accent: #2d8a4e;
+  --ml-accent-bg: #e8f5ed;
+  --ml-accent-alpha: rgba(45, 138, 78, 0.1);
+  --ml-hover: #f0f0f0;
+  --ml-image-bg: #f9fafb;
+  --ml-error: #dc2626;
+  --ml-error-bg: #fee2e2;
+  --ml-error-hover: #fecaca;
+  --ml-success: #166534;
+  --ml-success-bg: #dcfce7;
+  --ml-warning: #b45309;
+  --ml-warning-bg: #fef3c7;
 }
 
 body {
