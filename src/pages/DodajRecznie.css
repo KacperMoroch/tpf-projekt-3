@@ -308,7 +308,7 @@
 .info-card-icon.recent {
   background-color: var(--ml-recent);
 
-  color: var(--ml-warning-bg);
+  color: var(--ml-warning);
 }
 
 .info-card-title {

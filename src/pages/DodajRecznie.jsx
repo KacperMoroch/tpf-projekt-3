@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import "./DodajRecznie.css";
 import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
+import { useNavigate } from "react-router-dom";
 
 export default function DodajRecznie({ onClose, onProductAdded }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     category: "",
