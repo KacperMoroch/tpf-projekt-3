@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./MojaLodowka.css";
 import BottomNav from "../components/BottomNav";
 import Icon from "../components/Icon";
+import SkanujParagon from "./SkanujParagon";
 
 const initialProducts = [
   {
@@ -108,7 +109,7 @@ export default function MojaLodowka() {
         <div className="action-buttons">
           <button
             className="action-btn"
-            onClick={() => setCurrentScreen("scanReceipt")}
+            onClick={() => navigate("/skanuj-paragon")}
           >
             <div className="action-icon">
               <svg

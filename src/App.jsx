@@ -14,6 +14,7 @@ import PrzepisyPage from "./pages/PrzepisyPage";
 import UlubionePage from "./pages/UlubionePage";
 import ProfilePage from "./pages/ProfilePage";
 import ListaZakupow from "./pages/ListaZakupow";
+import SkanujParagon from "./pages/SkanujParagon";
 
 function App() {
   return (
@@ -72,6 +73,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <ListaZakupow />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/skanuj-paragon"
+                element={
+                  <PrivateRoute>
+                    <SkanujParagon onClose={() => window.history.back()} />
                   </PrivateRoute>
                 }
               />
