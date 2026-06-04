@@ -1,30 +1,43 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.css';
+
+import { AuthProvider } from "./auth/AuthContext";
+import { PrivateRoute } from "./auth/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgotPassword from "./pages/ForgotPassword";
-import { AuthProvider } from "./auth/AuthContext";
-import { PrivateRoute } from "./auth/PrivateRoute";
 import LodowkaPage from "./pages/LodowkaPage";
+
+import SzczegolyPrzepisu from './pages/SzczegolyPrzepisu';
+import PrzepisyPage from './pages/PrzepisyPage';
+import UlubionePage from './pages/UlubionePage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/logowanie" element={<LoginPage />} />
-          <Route path="/rejestracja" element={<RegisterPage />} />
-          <Route path="/zapomnialem-hasla" element={<ForgotPassword />} />
+      <div className="app-gallery">
 
-          <Route
-            path="/lodowka"
-            element={
-              <PrivateRoute>
-                <LodowkaPage />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+        <div className="mobile-mockup">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/logowanie" element={<LoginPage />} />
+              <Route path="/rejestracja" element={<RegisterPage />} />
+              <Route path="/zapomnialem-hasla" element={<ForgotPassword />} />
+
+              <Route path="/lodowka" element={<PrivateRoute><LodowkaPage /></PrivateRoute>} />
+
+              <Route path="/przepisy" element={<PrivateRoute><PrzepisyPage /></PrivateRoute>} />
+              <Route path="/przepis/:id" element={<PrivateRoute><SzczegolyPrzepisu /></PrivateRoute>} />
+              <Route path="/ulubione" element={<PrivateRoute><UlubionePage /></PrivateRoute>} />
+              <Route path="/profil" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+
+      </div>
     </AuthProvider>
   );
 }
