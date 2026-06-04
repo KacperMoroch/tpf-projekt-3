@@ -153,7 +153,7 @@ export default function MojaLodowka() {
 
           <button
             className="action-btn"
-            onClick={() => setCurrentScreen("addManual")}
+            onClick={() => navigate("/dodaj-recznie")}
           >
             <div className="action-icon">
               <svg

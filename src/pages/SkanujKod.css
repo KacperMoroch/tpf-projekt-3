@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background-color: #ffffff;
+  background-color: var(--background);
   z-index: 10;
 }
 
