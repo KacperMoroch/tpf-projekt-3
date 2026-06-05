@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+
+import Hotjar from "@hotjar/browser";
+import ReactGA from "react-ga4";
+import AnalyticsListener from "./components/AnalyticsListener";
 
 import { AuthProvider } from "./auth/AuthContext";
 import { PrivateRoute } from "./auth/PrivateRoute";
@@ -19,11 +23,20 @@ import SkanujKod from "./pages/SkanujKod";
 import DodajRecznie from "./pages/DodajRecznie";
 
 function App() {
+  useEffect(() => {
+    ReactGA.initialize("G-QSKFENW2HJ");
+
+    const siteId = 861236;
+    const hotjarVersion = 6;
+    Hotjar.init(siteId, hotjarVersion);
+  }, []);
+
   return (
     <AuthProvider>
       <div className="app-gallery">
         <div className="mobile-mockup">
           <BrowserRouter>
+            <AnalyticsListener />
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/logowanie" element={<LoginPage />} />
