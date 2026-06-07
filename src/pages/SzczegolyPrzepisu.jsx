@@ -20,7 +20,6 @@ const SzczegolyPrzepisu = () => {
     }
   };
 
-  // Tryb gotowania
   if (isCookingMode) {
     return (
       <div className="cooking-mode-screen">
@@ -68,11 +67,9 @@ const SzczegolyPrzepisu = () => {
     );
   }
 
-  // Widok główny
   return (
     <div className="recipe-details-wrapper">
       
-      {/* Górny pasek */}
       <header className="recipe-topbar-white">
         <button style={{background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', padding: 0}}>
           <Icon name="arrowLeft" size={24} />
@@ -83,7 +80,6 @@ const SzczegolyPrzepisu = () => {
         </div>
       </header>
       
-      {/* Zawartość przewijana */}
       <div className="main-content-area">
         
         <div className="scrollable-content">
@@ -133,7 +129,6 @@ const SzczegolyPrzepisu = () => {
 
           <div className="tab-content">
             
-            {/* Zakładka składniki */}
             {activeTab === "skladniki" && (
               <div>
                 <div className="list-item-card" onClick={() => toggleIngredient(1)} style={{alignItems: 'center'}}>
@@ -226,11 +221,9 @@ const SzczegolyPrzepisu = () => {
               </div>
             )}
 
-            {/* Zakładka instrukcje */}
             {activeTab === "instrukcje" && (
               <div>
                 
-                {/* Górny pasek ze statusem */}
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '16px', alignItems: 'center'}}>
                   <span className="status-pill">Krok 2 z 5</span>
                   <span style={{fontSize: '12px', color: 'var(--primary)', fontWeight: 'bold'}}>
@@ -239,7 +232,6 @@ const SzczegolyPrzepisu = () => {
                   </span>
                 </div>
 
-                {/* Karta odliczania */}
                 <div className="timer-floating-card">
                   <div className="timer-info">
                     <div className="timer-icon">
@@ -256,7 +248,6 @@ const SzczegolyPrzepisu = () => {
                   </div>
                 </div>
 
-                {/* Krok 1 */}
                 <div className="list-item-card" style={{opacity: 0.7}}>
                   <div className="step-checkbox"></div>
                   <div className="item-text">
@@ -268,7 +259,6 @@ const SzczegolyPrzepisu = () => {
                   </div>
                 </div>
 
-                {/* Krok 2 */}
                 <div className="list-item-card active-step">
                   <div className="step-checkbox"></div>
                   <div className="item-text">
@@ -278,7 +268,6 @@ const SzczegolyPrzepisu = () => {
                       Dodaj dynię, cebulę i czosnek do garnka. Smaż przez 10 minut, aż warzywa lekko zmiękną i zaczną pachnieć. Mieszaj regularnie, aby nie przypalić czosnku.
                     </div>
                     
-                    {/* Alert */}
                     <div style={{display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: '16px', color: '#c2410c', fontSize: '12px', fontWeight: '600'}}>
                       <Icon name="alert" size={16} style={{flexShrink: 0}} />
                       Uważaj, aby czosnek nie stał się brązowy – będzie gorzki.
@@ -286,7 +275,6 @@ const SzczegolyPrzepisu = () => {
                   </div>
                 </div>
 
-                {/* Krok 3 */}
                 <div className="list-item-card" style={{opacity: 0.5}}>
                   <div className="step-checkbox"></div>
                   <div className="item-text">
@@ -298,7 +286,6 @@ const SzczegolyPrzepisu = () => {
                   </div>
                 </div>
 
-                {/* Karta "Potrzebne teraz" */}
                 <div className="needed-now-card">
                   <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=600&q=80" alt="Składniki dynia" className="needed-img" />
                   <div className="needed-content">
@@ -311,7 +298,6 @@ const SzczegolyPrzepisu = () => {
                   </div>
                 </div>
 
-                {/* Eko Tip */}
                 <div className="eko-tip">
                   <div className="eko-tip-title">
                     <Icon name="leaf" size={16} /> Eko Tip
@@ -326,7 +312,6 @@ const SzczegolyPrzepisu = () => {
           </div>
         </div>
 
-        {/* Przycisk */}
         <div className="sticky-action-bar">
           <Button variant="cta" className="full-width-btn" onClick={() => setIsCookingMode(true)}>
             <Icon name="play" size={18} fill="currentColor" /> Gotuj

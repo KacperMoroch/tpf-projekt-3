@@ -1,4 +1,3 @@
-/* Główny kontener */
 .recipe-details-wrapper {
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
   overflow: hidden; 
 }
 
-/* Górny pasek */
 .recipe-topbar-white {
   display: flex;
   justify-content: space-between;
@@ -24,7 +22,6 @@
   font-size: 18px;
 }
 
-/* Kontener środkowy */
 .main-content-area {
   flex: 1;
   position: relative;
@@ -155,7 +152,6 @@
   padding: 20px;
 }
 
-/* Lista skłądników i kroków */
 .list-item-card {
   display: flex;
   align-items: flex-start;
@@ -210,7 +206,6 @@
   line-height: 1.5;
 }
 
-/* Zakładka instrukcje */
 .timer-floating-card {
   background: white;
   border: 1px solid #e2e8f0;
@@ -267,7 +262,6 @@
   cursor: pointer;
 }
 
-/* Sekcja "Potrzebne teraz" */
 .needed-now-card {
   background-color: #ffffff; 
   border-radius: 12px;
@@ -305,7 +299,6 @@
   color: var(--primary);
 }
 
-/* Eko Tip */
 .eko-tip {
   background-color: #fdf2f8;
   border: 1px solid #fbcfe8;
@@ -330,7 +323,6 @@
   line-height: 1.5;
 }
 
-/* Ocena i komentarze */
 .rating-section { display: flex; flex-direction: column; align-items: center; margin: 32px 0 24px; color: var(--outline); font-size: 13px; }
 .stars-row { display: flex; gap: 8px; margin-top: 12px; }
 .comments-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--on-background); margin-bottom: 20px; border-top: 1px solid #e2e8f0; padding-top: 24px; }
@@ -345,7 +337,6 @@
 .comment-input { flex: 1; background: none; border: none; outline: none; font-size: 14px; padding: 8px 0; }
 .comment-send-btn { background: none; border: none; color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-/* Tryb gotowania */
 .cooking-mode-screen { position: fixed; inset: 0; background-color: var(--background); z-index: 100; display: flex; flex-direction: column; padding: 20px; }
 .cooking-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
 .status-pill { background-color: #dcfce7; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; }

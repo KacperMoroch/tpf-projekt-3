@@ -8,7 +8,6 @@ import "./UlubionePage.css";
 const UlubionePage = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
-  // Mockowa baza ulubionych dań ze zdjęcia
   const favoritesData = [
     {
       id: 1,
@@ -44,10 +43,8 @@ const UlubionePage = () => {
     }
   ];
 
-  // Stan przechowujący ID polubionych przepisów
   const [likedRecipes, setLikedRecipes] = useState([1, 2, 3, 4]);
 
-  // Funkcja przełączająca stan polubienia
   const toggleLike = (id) => {
     if (likedRecipes.includes(id)) {
       setLikedRecipes(likedRecipes.filter(recipeId => recipeId !== id));

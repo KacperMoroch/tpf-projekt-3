@@ -1,4 +1,3 @@
-/* Główne klasy układu */
 .przepisy-page-wrapper {
   display: flex;
   flex-direction: column;
@@ -24,7 +23,6 @@
   padding: 20px;
 }
 
-/* Pasek wyszukiwania i przycisk filtrów */
 .search-row {
   display: flex;
   gap: 12px;
@@ -102,7 +100,6 @@
   cursor: pointer;
 }
 
-/* Nagłówek sekcji */
 .section-heading {
   font-size: 18px;
   font-weight: 800;
@@ -111,7 +108,6 @@
   margin-top: 0;
 }
 
-/* Karty z przepisami */
 .recipes-grid {
   display: flex;
   flex-direction: column;
@@ -139,7 +135,6 @@
   object-fit: cover;
 }
 
-/* Etykiety dopasowania składników */
 .match-badge {
   position: absolute;
   top: 12px;

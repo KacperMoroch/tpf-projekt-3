@@ -37,7 +37,6 @@ const ProfilePage = () => {
     }));
   };
 
-  // Ekran główny profilu
   const renderMainView = () => (
     <>
       <div className="profile-header">
@@ -100,7 +99,6 @@ const ProfilePage = () => {
     </>
   );
 
-  // Ekran zmień dane
   const renderEditView = () => (
     <>
       <div className="subpage-header">
@@ -146,7 +144,6 @@ const ProfilePage = () => {
     </>
   );
 
-  // Ekran ustawienia i pomoc
   const renderSupportView = () => (
     <>
       <div className="subpage-header">
@@ -224,7 +221,6 @@ const ProfilePage = () => {
     </>
   );
 
-  // Ekran alergie i dieta
   const renderAllergiesView = () => (
     <>
       <div className="subpage-header">
@@ -313,7 +309,6 @@ const ProfilePage = () => {
     </>
   );
 
-  // Ekran powiadomienia
   const renderNotificationsView = () => (
     <>
       <div className="subpage-header">
@@ -419,7 +414,6 @@ const ProfilePage = () => {
     </>
   );
 
-  // Główny render pliku
   return (
     <div className="page-wrapper">
       <header className="mock-topbar">
