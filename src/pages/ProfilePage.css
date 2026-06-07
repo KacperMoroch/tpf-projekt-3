@@ -1,4 +1,3 @@
-/* Układ główny */
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -12,7 +11,6 @@
   padding: 24px 20px;
 }
 
-/* Główny profil */
 .profile-header {
   display: flex;
   flex-direction: column;
@@ -153,7 +151,6 @@
   gap: 8px;
 }
 
-/* Podstrony (Np. Zmień dane) */
 .subpage-header {
   display: flex;
   align-items: center;
@@ -227,7 +224,6 @@
   margin-top: 8px;
 }
 
-/* Zastępcze paski do testowania */
 .mock-topbar {
   display: flex;
   justify-content: space-between;
@@ -239,7 +235,6 @@
   font-size: 18px;
 }
 
-/* Ekran ustawienia i pomoc */
 .settings-group {
   background-color: #ffffff;
   border-radius: var(--radius);
@@ -287,7 +282,6 @@
   font-size: 14px;
 }
 
-/* Przełącznik z Figmy */
 .toggle-switch {
   width: 44px;
   height: 24px;
@@ -310,7 +304,6 @@
   transition: all 0.3s;
 }
 
-/* Ekran powiadomień - szary przełącznik */
 .toggle-switch.inactive {
   background-color: #e2e8f0;
 }
@@ -320,7 +313,6 @@
   left: 2px;
 }
 
-/* Zielony baner Eko */
 .eco-banner {
   background-color: var(--primary);
   color: white;
@@ -352,7 +344,6 @@
   opacity: 0.15;
 }
 
-/* Banery ze zdjęciem */
 .hero-banner {
   border-radius: var(--radius);
   overflow: hidden;
@@ -372,7 +363,6 @@
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
-/* Ekran alergii i diet - przyciski wyboru */
 .options-section-title {
   font-size: 12px;
   color: var(--outline);

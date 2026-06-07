@@ -11,7 +11,6 @@ const FilterModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  // Funkcja dla filtrów wielokrotnego wyboru (Kuchnia, Dieta)
   const toggleMultiple = (item, stateGetter, stateSetter) => {
     if (stateGetter.includes(item)) {
       stateSetter(stateGetter.filter((i) => i !== item));
@@ -20,7 +19,6 @@ const FilterModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Funkcja resetująca wszystkie filtry do ustawień domyślnych
   const handleReset = () => {
     setKuchnia([]);
     setCzas("");
@@ -33,17 +31,14 @@ const FilterModal = ({ isOpen, onClose }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         
-        {/* Nagłówek */}
         <div className="modal-header">
           <button className="close-btn" onClick={onClose}>✕</button>
           <h2>Filtry</h2>
           <button className="reset-btn" onClick={handleReset}>Resetuj</button>
         </div>
 
-        {/* Przewijana treść */}
         <div className="modal-body">
           
-          {/* Typ kuchni */}
           <div className="filter-section">
             <div className="filter-section-title">Typ kuchni</div>
             <div className="chips-row">
@@ -59,7 +54,6 @@ const FilterModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Czas przygotowania */}
           <div className="filter-section">
             <div className="filter-section-title">Czas przygotowania</div>
             <div className="chips-row">
@@ -75,7 +69,6 @@ const FilterModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Poziom trudności */}
           <div className="filter-section">
             <div className="filter-section-title">Poziom trudności</div>
             <div className="chips-row">
@@ -91,7 +84,6 @@ const FilterModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Dieta */}
           <div className="filter-section">
             <div className="filter-section-title">Dieta</div>
             <div className="chips-row">
@@ -107,7 +99,6 @@ const FilterModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Sortuj według */}
           <div className="filter-section">
             <div className="filter-section-title">Sortuj według</div>
             <div className="sort-container">
@@ -124,14 +115,12 @@ const FilterModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Baner */}
           <div className="filter-banner">
             <p>Odkryj ponad 200+ przepisów<br/>dopasowanych do Twoich filtrów</p>
           </div>
 
         </div>
 
-        {/* Stopka */}
         <div className="modal-footer">
           <Button variant="primary" onClick={onClose}>
             Pokaż wyniki (42)

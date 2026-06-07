@@ -10,7 +10,6 @@ const PrzepisyPage = () => {
   
   const [likedRecipes, setLikedRecipes] = useState([2]); 
 
-  // Funkcja obsługująca kliknięcie w serduszko
   const toggleLike = (id) => {
     if (likedRecipes.includes(id)) {
       setLikedRecipes(likedRecipes.filter(recipeId => recipeId !== id));
@@ -65,7 +64,6 @@ const PrzepisyPage = () => {
 
       <main className="przepisy-content">
         
-        {/* Wyszukiwarka i przycisk filtra */}
         <div className="search-row">
           <div className="search-input-wrapper">
             <span className="search-icon"><Icon name="search" size={18} /></span>
@@ -89,7 +87,6 @@ const PrzepisyPage = () => {
           </Button>
         </div>
 
-        {/* Sekcja z kartami */}
         <h3 className="section-heading">Polecane dla Ciebie</h3>
         
         <div className="recipes-grid">
@@ -135,10 +132,8 @@ const PrzepisyPage = () => {
 
       </main>
 
-      {/* Komponent dolnej nawigacji */}
       <BottomNav currentTab="przepisy" />
-
-      {/* Okno modalne filtrów */}
+      
       {isFilterModalOpen && (
         <FilterModal 
           isOpen={isFilterModalOpen} 
