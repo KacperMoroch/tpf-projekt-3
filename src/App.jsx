@@ -21,6 +21,7 @@ import ListaZakupow from "./pages/ListaZakupow";
 import SkanujParagon from "./pages/SkanujParagon";
 import SkanujKod from "./pages/SkanujKod";
 import DodajRecznie from "./pages/DodajRecznie";
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   useEffect(() => {
@@ -115,6 +116,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
         </div>
