@@ -4,11 +4,25 @@ import Input from "../components/Input";
 import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
 import "./ProfilePage.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 const ProfilePage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("Wylogowano pomyślnie");
+      navigate("/");
+    } catch (error) {
+      console.error("Błąd podczas wylogowywania:", error);
+    }
+  };
+
   const [currentView, setCurrentView] = useState(
     location.state?.openView || "main",
   );
@@ -94,7 +108,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <button className="btn-logout">
+      <button className="btn-logout" onClick={handleLogout}>
         <Icon name="logout" size={18} /> Wyloguj
       </button>
     </>
@@ -205,7 +219,11 @@ const ProfilePage = () => {
           <div className="settings-item-title">Język</div>
           <div className="settings-item-action green">Polski</div>
         </div>
-        <div className="settings-item">
+        <div
+          className="settings-item"
+          onClick={handleLogout}
+          style={{ cursor: "pointer" }}
+        >
           <span className="menu-icon" style={{ color: "#e11d48" }}>
             <Icon name="logout" size={20} />
           </span>

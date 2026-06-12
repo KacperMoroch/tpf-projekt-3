@@ -14,23 +14,37 @@ const Login = () => {
         password: ''
     });
 
+    const [error, setError] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
+        if (error) setError('');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+
         try {
             const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
             console.log('Zalogowano pomyślnie!', userCredential.user);
             navigate('/lodowka');
         } catch (error) {
-            console.error('Błąd logowania:', error.message);
-            alert("Błędny e-mail lub hasło!");
+            console.error('Błąd logowania:', error.code, error.message);
+
+            let errorMessage = "Wystąpił błąd podczas logowania.";
+
+            if (error.code === 'auth/invalid-credential') {
+                errorMessage = "Błędny e-mail lub hasło. Spróbuj ponownie.";
+            } else if (error.code === 'auth/too-many-requests') {
+                errorMessage = "Konto tymczasowo zablokowane po wielu nieudanych próbach. Odczekaj chwilę.";
+            }
+
+            setError(errorMessage);
         }
     };
 
@@ -49,8 +63,18 @@ const Login = () => {
             </div>
 
             <div className="login-card">
-                <form className="login-form" onSubmit={handleSubmit}>
+                {error && (
+                    <div className="login-error-message">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        <span>{error}</span>
+                    </div>
+                )}
 
+                <form className="login-form" onSubmit={handleSubmit}>
                     <div className="login-input-group">
                         <label className="login-input-label">Adres e-mail</label>
                         <div className="login-input-wrapper">
@@ -118,10 +142,8 @@ const Login = () => {
             </button>
 
             <button className="login-guest-link" onClick={() => navigate('/lodowka')}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 4v16" />
-                    <path d="M19 4v16" />
-                    <path d="M5 4l6 8-6 8" />
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z" />
                 </svg>
                 Przejdź jako gość
             </button>

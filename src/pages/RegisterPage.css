@@ -5,12 +5,18 @@
 }
 
 .register-container {
-    min-height: 100vh;
+    height: 100%;
+    overflow-y: auto;
+
     background-color: var(--background);
     font-family: var(--font-family);
     max-width: 480px;
     margin: 0 auto;
     padding-bottom: 40px;
+}
+
+.register-container>* {
+    flex-shrink: 0;
 }
 
 .register-header {
@@ -69,6 +75,12 @@
 
 .register-content {
     padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-content>* {
+    flex-shrink: 0;
 }
 
 .register-title {
@@ -97,30 +109,45 @@
     overflow: hidden;
     position: relative;
     height: 140px;
+    background-color: transparent !important;
+}
+
+.register-banner::before,
+.register-banner::after {
+    display: none !important;
+    content: none !important;
 }
 
 .banner-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background-color: transparent !important;
+    mix-blend-mode: normal !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .banner-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%) !important;
+    background-color: transparent !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 60px 16px 4px 16px !important;
+    gap: 8px !important;
 }
 
 .banner-icon {
     width: 24px;
     height: 24px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -131,14 +158,15 @@
 .banner-icon svg {
     width: 14px;
     height: 14px;
-    color: white;
+    color: var(--on-primary);
 }
 
 .banner-text {
-    color: white;
+    color: var(--on-primary);
     font-size: 14px;
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.2 !important;
+    margin: 0 !important;
 }
 
 .register-form {
@@ -164,7 +192,8 @@
     background-color: var(--surface);
     border: 1px solid var(--outline);
     border-radius: 12px;
-    height: var(--touch-target-min);
+    height: auto !important;
+    min-height: 48px !important;
 }
 
 .input-icon {
@@ -174,18 +203,22 @@
     height: 20px;
     color: var(--outline);
     pointer-events: none;
+    z-index: 2;
 }
 
 .form-input {
     width: 100%;
-    height: 100%;
-    padding: 0 48px 0 48px;
     border: none;
     background: transparent;
     border-radius: 12px;
     font-size: var(--font-body-size);
     color: var(--on-background);
     transition: box-shadow 0.2s ease;
+    z-index: 1;
+    padding: 16px 48px !important;
+    height: auto !important;
+    line-height: normal !important;
+    box-sizing: border-box !important;
 }
 
 .form-input::placeholder {
@@ -194,7 +227,7 @@
 
 .input-wrapper:focus-within {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 110, 28, 0.1);
+    box-shadow: 0 0 0 3px var(--ml-accent-alpha);
 }
 
 .form-input:focus {
@@ -211,6 +244,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 3;
 }
 
 .password-toggle svg {
@@ -227,7 +261,7 @@
 
 .submit-button {
     width: 100%;
-    height: var(--touch-target-min);
+    padding: 16px;
     background-color: var(--primary);
     color: var(--on-primary);
     border: none;
@@ -282,8 +316,8 @@
 
 .social-button {
     flex: 1;
-    height: var(--touch-target-min);
-    background-color: #ffffff;
+    padding: 14px;
+    background-color: var(--on-primary);
     border: 1px solid var(--outline);
     border-radius: 12px;
     font-size: 14px;
@@ -298,7 +332,7 @@
 }
 
 .social-button:hover {
-    background-color: #f9fafb;
+    background-color: var(--ml-hover);
 }
 
 .social-icon {
@@ -309,6 +343,7 @@
 .login-link {
     text-align: center;
     margin-top: 28px;
+    margin-bottom: 24px;
     font-size: 14px;
     color: var(--outline);
 }
@@ -327,7 +362,7 @@
 .info-box {
     margin-top: 28px;
     padding: 16px;
-    background-color: rgba(0, 110, 28, 0.05);
+    background-color: var(--ml-accent-alpha);
     border-radius: 12px;
     display: flex;
     gap: 12px;
@@ -347,6 +382,38 @@
     line-height: 1.5;
 }
 
+.register-error-message {
+    background-color: var(--ml-error-bg);
+    color: var(--ml-error);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.register-error-message svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 380px) {
     .register-content {
         padding: 0 16px;
@@ -364,6 +431,6 @@
 @media (min-width: 481px) {
     .register-container {
         padding-top: 20px;
-        min-height: auto;
+        height: auto;
     }
 }
