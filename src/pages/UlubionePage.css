@@ -91,6 +91,16 @@
   border: 1px solid #f1f5f9;
   gap: 16px;
 }
+.favorite-card.is-removing {
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
 
 .favorite-image {
   width: 72px;

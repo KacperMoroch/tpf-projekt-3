@@ -8,8 +8,8 @@ import TopBar from "../components/TopBar";
 
 const UlubionePage = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-
-  const favoritesData = [
+  const [searchQuery, setSearchQuery] = useState("");
+  const [recipes, setRecipes] = useState([
     {
       id: 1,
       category: "Sałatki",
@@ -46,13 +46,15 @@ const UlubionePage = () => {
       time: "25 min",
       calories: "380 kcal",
     },
-  ];
-
+  ]);
   const [likedRecipes, setLikedRecipes] = useState([1, 2, 3, 4]);
-
+  const [removingId, setRemovingId] = useState(null);
   const toggleLike = (id) => {
     if (likedRecipes.includes(id)) {
       setLikedRecipes(likedRecipes.filter((recipeId) => recipeId !== id));
+      setTimeout(() => {
+        setRecipes((prev) => prev.filter((r) => r.id !== id));
+      }, 500);
     } else {
       setLikedRecipes([...likedRecipes, id]);
     }
@@ -65,9 +67,7 @@ const UlubionePage = () => {
       <main className="page-content">
         <div className="favorites-header-row">
           <h2 className="favorites-title">Zapisane przepisy</h2>
-          <span className="favorites-count">
-            {favoritesData.length} pozycji
-          </span>
+          <span className="favorites-count">{recipes.length} pozycji</span>
         </div>
 
         <div className="search-row">
@@ -79,6 +79,8 @@ const UlubionePage = () => {
               type="text"
               className="search-input"
               placeholder="Szukaj w ulubionych..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <button
@@ -90,46 +92,59 @@ const UlubionePage = () => {
         </div>
 
         <div className="favorites-list">
-          {favoritesData.map((recipe) => (
-            <div className="favorite-card" key={recipe.id}>
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                className="favorite-image"
-              />
-
-              <div className="favorite-content">
-                <div className="favorite-category">{recipe.category}</div>
-                <h4 className="favorite-title">{recipe.title}</h4>
-                <div className="favorite-meta">
-                  <span>
-                    <Icon name="clock" size={14} /> {recipe.time}
-                  </span>
-                  <span>
-                    <Icon name="flame" size={14} /> {recipe.calories}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                className="favorite-action-btn"
-                onClick={() => toggleLike(recipe.id)}
+          {recipes
+            .filter((recipe) =>
+              recipe.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
+            )
+            .map((recipe) => (
+              <div
+                className={`favorite-card ${removingId === recipe.id ? "is-removing" : ""}`}
+                key={recipe.id}
               >
-                <Icon
-                  name="favorites"
-                  size={24}
-                  fill={
-                    likedRecipes.includes(recipe.id) ? "var(--primary)" : "none"
-                  }
-                  color={
-                    likedRecipes.includes(recipe.id)
-                      ? "var(--primary)"
-                      : "var(--outline)"
-                  }
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="favorite-image"
                 />
-              </button>
-            </div>
-          ))}
+
+                <div className="favorite-content">
+                  <div className="favorite-category">{recipe.category}</div>
+                  <h4 className="favorite-title">{recipe.title}</h4>
+                  <div className="favorite-meta">
+                    <span>
+                      <Icon name="clock" size={14} /> {recipe.time}
+                    </span>
+                    <span>
+                      <Icon name="flame" size={14} /> {recipe.calories}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  className="favorite-action-btn"
+                  onClick={() => toggleLike(recipe.id)}
+                >
+                  <Icon
+                    name="favorites"
+                    size={24}
+                    fill={
+                      removingId === recipe.id
+                        ? "none"
+                        : likedRecipes.includes(recipe.id)
+                          ? "var(--primary)"
+                          : "none"
+                    }
+                    color={
+                      removingId === recipe.id
+                        ? "var(--outline)"
+                        : likedRecipes.includes(recipe.id)
+                          ? "var(--primary)"
+                          : "var(--outline)"
+                    }
+                  />
+                </button>
+              </div>
+            ))}
         </div>
       </main>
 

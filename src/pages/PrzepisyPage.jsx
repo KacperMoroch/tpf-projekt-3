@@ -8,7 +8,7 @@ import TopBar from "../components/TopBar";
 
 const PrzepisyPage = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const [likedRecipes, setLikedRecipes] = useState([2]);
 
   const toggleLike = (id) => {
@@ -55,6 +55,10 @@ const PrzepisyPage = () => {
     },
   ];
 
+  const filteredRecipes = recipesData.filter((recipe) =>
+    recipe.title.toLowerCase().startsWith(searchQuery.toLowerCase()),
+  );
+
   return (
     <div className="przepisy-page-wrapper">
       <TopBar title="Przepisy" showBackButton={false} />
@@ -69,6 +73,8 @@ const PrzepisyPage = () => {
               type="text"
               className="search-input"
               placeholder="Szukaj składników lub dań..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <button
@@ -89,7 +95,7 @@ const PrzepisyPage = () => {
         <h3 className="section-heading">Polecane dla Ciebie</h3>
 
         <div className="recipes-grid">
-          {recipesData.map((recipe) => (
+          {filteredRecipes.map((recipe, index) => (
             <div className="recipe-card" key={recipe.id}>
               <div className="recipe-image-container">
                 <img
