@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./MojaLodowka.css";
 import BottomNav from "../components/BottomNav";
 import Icon from "../components/Icon";
@@ -44,6 +44,45 @@ const initialProducts = [
   },
 ];
 
+const simulatedScannedProducts = [
+  {
+    id: 101,
+    name: "Jogurt naturalny",
+    amount: "1 szt.",
+    daysLeft: 5,
+    image:
+      "https://www.krasnystaw.eu/pliki/pobierz/WHXdI1eEZQoAEibwjdM0zmMyWx3mrl7q/jogurt-naturalny-kubek-175png.png",
+    category: "nabial",
+  },
+  {
+    id: 102,
+    name: "Pomidory",
+    amount: "500g",
+    daysLeft: 4,
+    image:
+      "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=200&h=200&fit=crop",
+    category: "warzywa",
+  },
+  {
+    id: 103,
+    name: "Szynka z indyka",
+    amount: "200g",
+    daysLeft: 3,
+    image:
+      "https://esklep.spolembialystok.pl/140-large_default/szynka-z-indyka-prasowana-kg.jpg",
+    category: "mieso",
+  },
+  {
+    id: 104,
+    name: "Jajka",
+    amount: "10 szt.",
+    daysLeft: 10,
+    image:
+      "https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=200&h=200&fit=crop",
+    category: "nabial",
+  },
+];
+
 const categories = [
   { id: "wszystko", label: "Wszystko" },
   { id: "mieso", label: "Mięso" },
@@ -53,8 +92,14 @@ const categories = [
 
 export default function MojaLodowka() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(() => {
+    if (location.state?.showNewProduct) {
+      return [...simulatedScannedProducts, ...initialProducts];
+    }
+    return initialProducts;
+  });
   const [activeCategory, setActiveCategory] = useState("wszystko");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentScreen, setCurrentScreen] = useState("main");

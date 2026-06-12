@@ -5,10 +5,17 @@ import "./SkanujParagon.css";
 import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
 import paragon_fiskalny from "../assets/paragon_fiskalny.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function SkanujParagon({ onClose, onProductAdded }) {
   const [scanPhase, setScanPhase] = useState("scanning");
   const [showFlash, setShowFlash] = useState(false);
+  const navigate = useNavigate();
+
+  const finishSimulation = () => {
+    if (onProductAdded) onProductAdded();
+    navigate("/lodowka", { state: { showNewProduct: true } });
+  };
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -20,8 +27,7 @@ export default function SkanujParagon({ onClose, onProductAdded }) {
     }, 4000);
 
     const timer3 = setTimeout(() => {
-      onProductAdded && onProductAdded();
-      onClose();
+      finishSimulation();
     }, 5500);
 
     return () => {
@@ -29,14 +35,13 @@ export default function SkanujParagon({ onClose, onProductAdded }) {
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, [onClose, onProductAdded]);
+  }, [onProductAdded, navigate]);
 
   const handleCapture = () => {
     setScanPhase("found");
     setTimeout(() => setScanPhase("success"), 1500);
     setTimeout(() => {
-      onProductAdded && onProductAdded();
-      onClose();
+      finishSimulation();
     }, 3000);
   };
 
