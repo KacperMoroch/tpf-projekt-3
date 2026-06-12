@@ -1,0 +1,38 @@
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--ml-border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.top-bar-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.top-bar-profile:hover {
+  background-color: var(--ml-accent-alpha);
+}
+
+.top-bar-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  letter-spacing: -0.5px;
+  margin: 0;
+}

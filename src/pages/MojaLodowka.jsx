@@ -4,6 +4,7 @@ import "./MojaLodowka.css";
 import BottomNav from "../components/BottomNav";
 import Icon from "../components/Icon";
 import SkanujParagon from "./SkanujParagon";
+import TopBar from "../components/TopBar";
 
 const initialProducts = [
   {
@@ -157,23 +158,7 @@ export default function MojaLodowka() {
 
   return (
     <div className="app-container">
-      <header className="mock-topbar">
-        <span style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
-          ≡
-        </span>
-        <span>Fridge2Table</span>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/profil")}
-        >
-          <Icon name="profile" size={24} />
-        </div>
-      </header>
+      <TopBar />
 
       <main className="main-content">
         <div className="action-buttons">
