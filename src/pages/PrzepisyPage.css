@@ -20,7 +20,7 @@
 .przepisy-content {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 8px 8px 8px 20px;
 }
 
 .search-row {
@@ -116,10 +116,10 @@
 }
 
 .recipe-card {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   border: 1px solid #e2e8f0;
 }
 
@@ -145,12 +145,12 @@
   font-weight: 700;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .match-badge.high {
-  background-color: var(--primary); 
-  color: #ffffff; 
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
 .match-badge.medium {
@@ -185,12 +185,14 @@
   cursor: pointer;
   padding: 0;
   color: var(--outline);
-  transition: transform 0.1s, color 0.2s;
+  transition:
+    transform 0.1s,
+    color 0.2s;
   display: flex;
 }
 
 .heart-btn.liked {
-  color: var(--primary); 
+  color: var(--primary);
 }
 
 .heart-btn:active {

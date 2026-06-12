@@ -5,6 +5,7 @@ import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
 import "./ProfilePage.css";
 import { useLocation } from "react-router-dom";
+import TopBar from "../components/TopBar";
 
 const ProfilePage = () => {
   const location = useLocation();
@@ -416,26 +417,7 @@ const ProfilePage = () => {
 
   return (
     <div className="page-wrapper">
-      <header className="mock-topbar">
-        <div style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
-          ≡
-        </div>
-        <div>Fridge2Table</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Icon
-            name="profile"
-            size={24}
-            fill="var(--primary)"
-            color="var(--primary)"
-          />
-        </div>
-      </header>
+      <TopBar title="Profil" showBackButton={false} />
 
       <main className="page-content">
         {currentView === "main" && renderMainView()}

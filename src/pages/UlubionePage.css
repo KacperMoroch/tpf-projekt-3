@@ -1,3 +1,7 @@
+.page-content {
+  padding: 16px 8px 8px 10px;
+}
+
 .favorites-header-row {
   display: flex;
   justify-content: space-between;
@@ -83,7 +87,7 @@
   padding: 12px;
   background-color: var(--on-primary);
   border-radius: var(--radius);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
   border: 1px solid #f1f5f9;
   gap: 16px;
 }
