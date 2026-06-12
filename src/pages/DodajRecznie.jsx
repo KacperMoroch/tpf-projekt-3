@@ -33,6 +33,11 @@ export default function DodajRecznie({ onClose, onProductAdded }) {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleSave = (e) => {
+    e.preventDefault();
+    navigate("/lodowka", { state: { addedManually: true } });
+  };
+
   const setQuickDate = (daysFromNow) => {
     const date = new Date();
     date.setDate(date.getDate() + daysFromNow);
@@ -256,7 +261,7 @@ export default function DodajRecznie({ onClose, onProductAdded }) {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
+          <button type="submit" className="submit-btn" onClick={handleSave}>
             <svg
               width="20"
               height="20"

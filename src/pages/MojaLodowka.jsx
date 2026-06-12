@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./MojaLodowka.css";
 import BottomNav from "../components/BottomNav";
 import Icon from "../components/Icon";
 import SkanujParagon from "./SkanujParagon";
+import TopBar from "../components/TopBar";
 
 const initialProducts = [
   {
@@ -44,6 +45,65 @@ const initialProducts = [
   },
 ];
 
+const simulatedScannedProducts = [
+  {
+    id: 101,
+    name: "Jogurt naturalny",
+    amount: "1 szt.",
+    daysLeft: 5,
+    image:
+      "https://www.krasnystaw.eu/pliki/pobierz/WHXdI1eEZQoAEibwjdM0zmMyWx3mrl7q/jogurt-naturalny-kubek-175png.png",
+    category: "nabial",
+  },
+  {
+    id: 102,
+    name: "Pomidory",
+    amount: "500g",
+    daysLeft: 4,
+    image:
+      "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=200&h=200&fit=crop",
+    category: "warzywa",
+  },
+  {
+    id: 103,
+    name: "Szynka z indyka",
+    amount: "200g",
+    daysLeft: 3,
+    image:
+      "https://esklep.spolembialystok.pl/140-large_default/szynka-z-indyka-prasowana-kg.jpg",
+    category: "mieso",
+  },
+  {
+    id: 104,
+    name: "Jajka",
+    amount: "10 szt.",
+    daysLeft: 10,
+    image:
+      "https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=200&h=200&fit=crop",
+    category: "nabial",
+  },
+];
+
+const simulatedBarcodeProduct = {
+  id: 105,
+  name: "Awokado Hass",
+  amount: "1 szt.",
+  daysLeft: 5,
+  image:
+    "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=200&h=200&fit=crop",
+  category: "warzywa",
+};
+
+const simulatedManualProduct = {
+  id: 106,
+  name: "Pomidory malinowe",
+  amount: "3 szt.",
+  daysLeft: 7,
+  image:
+    "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=200&h=200&fit=crop",
+  category: "warzywa",
+};
+
 const categories = [
   { id: "wszystko", label: "Wszystko" },
   { id: "mieso", label: "Mięso" },
@@ -53,8 +113,20 @@ const categories = [
 
 export default function MojaLodowka() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(() => {
+    if (location.state?.showNewProduct) {
+      return [...simulatedScannedProducts, ...initialProducts];
+    }
+    if (location.state?.addedFromBarcode) {
+      return [simulatedBarcodeProduct, ...initialProducts];
+    }
+    if (location.state?.addedManually) {
+      return [simulatedManualProduct, ...initialProducts];
+    }
+    return initialProducts;
+  });
   const [activeCategory, setActiveCategory] = useState("wszystko");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentScreen, setCurrentScreen] = useState("main");
@@ -86,23 +158,7 @@ export default function MojaLodowka() {
 
   return (
     <div className="app-container">
-      <header className="mock-topbar">
-        <span style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
-          ≡
-        </span>
-        <span>Fridge2Table</span>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/profil")}
-        >
-          <Icon name="profile" size={24} />
-        </div>
-      </header>
+      <TopBar />
 
       <main className="main-content">
         <div className="action-buttons">

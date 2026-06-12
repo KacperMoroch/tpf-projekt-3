@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./ListaZakupow.css";
 import BottomNav from "../components/BottomNav";
 import Icon from "../components/Icon";
+import TopBar from "../components/TopBar";
 
 const initialShoppingList = [
   {
@@ -101,6 +102,9 @@ export default function ListaZakupow({ onMoveToFridge }) {
     if (onMoveToFridge) {
       onMoveToFridge(checkedItems);
     }
+    setTimeout(() => {
+      navigate("/lodowka", { state: { addedFromBarcode: true } });
+    }, 500);
   };
 
   const checkedCount = items.filter((item) => item.checked).length;
@@ -108,26 +112,7 @@ export default function ListaZakupow({ onMoveToFridge }) {
 
   return (
     <div className="lista-container">
-      <header
-        className="lista-header mock-topbar"
-        style={{ position: "sticky", top: 0, zIndex: 100 }}
-      >
-        <span style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
-          ≡
-        </span>
-        <span>Fridge2Table</span>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/profil")}
-        >
-          <Icon name="profile" size={24} />
-        </div>
-      </header>
+      <TopBar />
 
       <div className="lista-title-section">
         <h2 className="lista-title">Lista Zakupów</h2>

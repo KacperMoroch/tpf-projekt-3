@@ -5,6 +5,7 @@ import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
 import "./ProfilePage.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import TopBar from "../components/TopBar";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
@@ -218,7 +219,11 @@ const ProfilePage = () => {
           <div className="settings-item-title">Język</div>
           <div className="settings-item-action green">Polski</div>
         </div>
-        <div className="settings-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
+        <div
+          className="settings-item"
+          onClick={handleLogout}
+          style={{ cursor: "pointer" }}
+        >
           <span className="menu-icon" style={{ color: "#e11d48" }}>
             <Icon name="logout" size={20} />
           </span>
@@ -430,26 +435,7 @@ const ProfilePage = () => {
 
   return (
     <div className="page-wrapper">
-      <header className="mock-topbar">
-        <div style={{ fontSize: "24px", cursor: "pointer", lineHeight: "1" }}>
-          ≡
-        </div>
-        <div>Fridge2Table</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Icon
-            name="profile"
-            size={24}
-            fill="var(--primary)"
-            color="var(--primary)"
-          />
-        </div>
-      </header>
+      <TopBar title="Profil" showBackButton={false} />
 
       <main className="page-content">
         {currentView === "main" && renderMainView()}

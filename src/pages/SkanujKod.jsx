@@ -4,9 +4,16 @@ import React, { useState, useEffect } from "react";
 import "./SkanujKod.css";
 import Icon from "../components/Icon";
 import kodKreskowy from "../assets/kod_kreskowy.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
   const [scanPhase, setScanPhase] = useState("scanning");
+  const navigate = useNavigate();
+
+  const finishSimulation = () => {
+    if (onProductAdded) onProductAdded();
+    navigate("/lodowka", { state: { addedFromBarcode: true } });
+  };
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -18,8 +25,7 @@ export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
     }, 4500);
 
     const timer3 = setTimeout(() => {
-      onProductAdded && onProductAdded();
-      if (onClose) onClose();
+      finishSimulation();
     }, 6000);
 
     return () => {
@@ -27,7 +33,7 @@ export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, [onClose, onProductAdded]);
+  }, [onProductAdded, navigate]);
 
   return (
     <div className="code-scanner-container">
@@ -114,7 +120,7 @@ export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <p>Dodano: Mleko 3.2%</p>
+            <p>Dodano: Awokado Hass</p>
           </div>
         )}
       </div>
@@ -136,7 +142,10 @@ export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
           <p className="manual-entry-title">Wpisz ręcznie</p>
           <p className="manual-entry-subtitle">Jeśli kod jest nieczytelny</p>
         </div>
-        <button className="manual-entry-btn" onClick={onManualEntry}>
+        <button
+          className="manual-entry-btn"
+          onClick={() => navigate("/dodaj-recznie")}
+        >
           Wpisz
         </button>
       </div>
