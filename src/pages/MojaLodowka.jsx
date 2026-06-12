@@ -83,6 +83,16 @@ const simulatedScannedProducts = [
   },
 ];
 
+const simulatedBarcodeProduct = {
+  id: "105",
+  name: "Awokado Hass",
+  amount: "1 szt.",
+  daysLeft: 5,
+  image:
+    "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=200&h=200&fit=crop",
+  category: "warzywa",
+};
+
 const categories = [
   { id: "wszystko", label: "Wszystko" },
   { id: "mieso", label: "Mięso" },
@@ -97,6 +107,9 @@ export default function MojaLodowka() {
   const [products, setProducts] = useState(() => {
     if (location.state?.showNewProduct) {
       return [...simulatedScannedProducts, ...initialProducts];
+    }
+    if (location.state?.addedFromBarcode) {
+      return [simulatedBarcodeProduct, ...initialProducts];
     }
     return initialProducts;
   });
