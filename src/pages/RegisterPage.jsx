@@ -15,23 +15,38 @@ const RegisterPage = () => {
         password: ''
     });
 
+    const [error, setError] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
+        if (error) setError('');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
             console.log('Zarejestrowano pomyślnie!', userCredential.user);
             navigate('/logowanie');
         } catch (error) {
             console.error('Błąd rejestracji:', error.message);
-            alert("Błąd: " + error.message);
+
+            let errorMessage = "Wystąpił błąd podczas rejestracji.";
+            if (error.code === 'auth/email-already-in-use') {
+                errorMessage = "Konto z tym adresem e-mail już istnieje.";
+            } else if (error.code === 'auth/weak-password') {
+                errorMessage = "Hasło jest zbyt słabe (minimum 6 znaków).";
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = "Nieprawidłowy format adresu e-mail.";
+            }
+
+            setError(errorMessage);
         }
     };
 
@@ -80,6 +95,18 @@ const RegisterPage = () => {
                 </div>
 
                 <form className="register-form" onSubmit={handleSubmit}>
+
+                    {error && (
+                        <div className="register-error-message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                            <span>{error}</span>
+                        </div>
+                    )}
+
                     <div className="form-group">
                         <label className="form-label" htmlFor="name">Imię i Nazwisko</label>
                         <div className="input-wrapper">
