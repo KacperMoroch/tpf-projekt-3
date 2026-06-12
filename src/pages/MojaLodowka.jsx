@@ -84,12 +84,22 @@ const simulatedScannedProducts = [
 ];
 
 const simulatedBarcodeProduct = {
-  id: "105",
+  id: 105,
   name: "Awokado Hass",
   amount: "1 szt.",
   daysLeft: 5,
   image:
     "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=200&h=200&fit=crop",
+  category: "warzywa",
+};
+
+const simulatedManualProduct = {
+  id: 106,
+  name: "Pomidory malinowe",
+  amount: "3 szt.",
+  daysLeft: 7,
+  image:
+    "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=200&h=200&fit=crop",
   category: "warzywa",
 };
 
@@ -110,6 +120,9 @@ export default function MojaLodowka() {
     }
     if (location.state?.addedFromBarcode) {
       return [simulatedBarcodeProduct, ...initialProducts];
+    }
+    if (location.state?.addedManually) {
+      return [simulatedManualProduct, ...initialProducts];
     }
     return initialProducts;
   });

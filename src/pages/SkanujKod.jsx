@@ -142,7 +142,10 @@ export default function SkanujKod({ onClose, onProductAdded, onManualEntry }) {
           <p className="manual-entry-title">Wpisz ręcznie</p>
           <p className="manual-entry-subtitle">Jeśli kod jest nieczytelny</p>
         </div>
-        <button className="manual-entry-btn" onClick={onManualEntry}>
+        <button
+          className="manual-entry-btn"
+          onClick={() => navigate("/dodaj-recznie")}
+        >
           Wpisz
         </button>
       </div>
