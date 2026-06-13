@@ -12,13 +12,35 @@ const SzczegolyPrzepisu = () => {
 
   const [activeTab, setActiveTab] = useState("instrukcje");
   const [isCookingMode, setIsCookingMode] = useState(false);
-  const [checkedIngredients, setCheckedIngredients] = useState([1, 2, 4]);
-  const [isLiked, setIsLiked] = useState(true);
+  const [checkedIngredients, setCheckedIngredients] = useState([1, 2, 3, 4]);
+  const [isLiked, setIsLiked] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+
+  const [newCommentText, setNewCommentText] = useState("");
+  const [commentsList, setCommentsList] = useState([
+    {
+      id: 1,
+      name: "Anna Kowalska",
+      initials: "AK",
+      bgColor: "#fed7aa",
+      time: "2 dni temu",
+      text: "Przepis rewelacyjny! Łosoś wyszedł niesamowicie soczysty dzięki tym cytrusom. Na pewno powtórzę."
+    },
+    {
+      id: 2,
+      name: "Marek Wiśniewski",
+      initials: "MW",
+      bgColor: "#bbf7d0",
+      time: "Wczoraj",
+      text: "Dodałem jeszcze odrobinę miodu do marynaty i wyszło perfekcyjnie. Polecam!"
+    }
+  ]);
 
   const cookingSteps = [
     {
@@ -37,6 +59,39 @@ const SzczegolyPrzepisu = () => {
       time: "15:00"
     }
   ];
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    const recipeId = Number(id) || 1;
+    if (saved.some(r => r.id === recipeId)) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [id]);
+
+  const handleToggleLike = () => {
+    const saved = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    const recipeId = Number(id) || 1;
+
+    if (isLiked) {
+      const newSaved = saved.filter(r => r.id !== recipeId);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newSaved));
+      setIsLiked(false);
+    } else {
+      const currentRecipeDetails = {
+        id: recipeId,
+        category: "Dania główne",
+        title: "Pieczony Łosoś z Cytrusami",
+        image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80",
+        time: "25 min",
+        calories: "450 kcal"
+      };
+      saved.push(currentRecipeDetails);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(saved));
+      setIsLiked(true);
+    }
+  };
 
   const parseTimeToSeconds = (timeStr) => {
     if (!timeStr) return 0;
@@ -88,6 +143,35 @@ const SzczegolyPrzepisu = () => {
     setIsRunning(false);
   };
 
+  const handleAddComment = () => {
+    if (newCommentText.trim() === "") return;
+    
+    const newComment = {
+      id: Date.now(),
+      name: "Jakub Kowalski",
+      initials: "JK",
+      bgColor: "var(--primary)",
+      time: "Teraz",
+      text: newCommentText
+    };
+
+    setCommentsList([newComment, ...commentsList]);
+    setNewCommentText("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleAddComment();
+    }
+  };
+
+  const handleCopyLink = () => {
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  };
+
   const reviewsSection = (
     <>
       <div className="rating-section">
@@ -113,31 +197,31 @@ const SzczegolyPrzepisu = () => {
         <Icon name="message" size={20} /> Komentarze
       </div>
 
-      <div className="comment-item">
-        <div className="comment-avatar" style={{ backgroundColor: '#fed7aa' }}>AK</div>
-        <div className="comment-content">
-          <div className="comment-top">
-            <span className="comment-name">Anna Kowalska</span>
-            <span className="comment-time">2 dni temu</span>
+      {commentsList.map((comment) => (
+        <div className="comment-item" key={comment.id}>
+          <div className="comment-avatar" style={{ backgroundColor: comment.bgColor, color: comment.bgColor === 'var(--primary)' ? 'white' : 'var(--on-background)' }}>
+            {comment.initials}
           </div>
-          <div className="comment-text">Przepis rewelacyjny! Łosoś wyszedł niesamowicie soczysty dzięki tym cytrusom. Na pewno powtórzę.</div>
-        </div>
-      </div>
-
-      <div className="comment-item">
-        <div className="comment-avatar" style={{ backgroundColor: '#bbf7d0' }}>MW</div>
-        <div className="comment-content">
-          <div className="comment-top">
-            <span className="comment-name">Marek Wiśniewski</span>
-            <span className="comment-time">Wczoraj</span>
+          <div className="comment-content">
+            <div className="comment-top">
+              <span className="comment-name">{comment.name}</span>
+              <span className="comment-time">{comment.time}</span>
+            </div>
+            <div className="comment-text">{comment.text}</div>
           </div>
-          <div className="comment-text">Dodałem jeszcze odrobinę miodu do marynaty i wyszło perfekcyjnie. Polecam!</div>
         </div>
-      </div>
+      ))}
 
       <div className="comment-input-row">
-        <input type="text" className="comment-input" placeholder="Dodaj komentarz..." />
-        <button className="comment-send-btn">
+        <input 
+          type="text" 
+          className="comment-input" 
+          placeholder="Dodaj komentarz..." 
+          value={newCommentText}
+          onChange={(e) => setNewCommentText(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <button className="comment-send-btn" onClick={handleAddComment}>
           <Icon name="send" size={20} />
         </button>
       </div>
@@ -225,12 +309,12 @@ const SzczegolyPrzepisu = () => {
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button
                   className="icon-btn-round"
-                  onClick={() => setIsLiked(!isLiked)}
+                  onClick={handleToggleLike}
                   style={{ color: isLiked ? 'var(--primary)' : 'var(--outline)' }}
                 >
                   <Icon name="favorites" fill={isLiked ? "currentColor" : "none"} size={20} />
                 </button>
-                <button className="icon-btn-round" style={{ color: 'var(--on-background)' }}>
+                <button className="icon-btn-round" onClick={() => setIsShareModalOpen(true)} style={{ color: 'var(--on-background)' }}>
                   <Icon name="share" size={20} />
                 </button>
               </div>
@@ -408,6 +492,61 @@ const SzczegolyPrzepisu = () => {
           </Button>
         </div>
       </div>
+
+      {isShareModalOpen && (
+        <div className="info-modal-overlay" onClick={() => setIsShareModalOpen(false)}>
+          <div className="info-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="info-modal-header">
+              <h3>Udostępnij przepis</h3>
+              <button className="info-modal-close" onClick={() => setIsShareModalOpen(false)}>✕</button>
+            </div>
+            <div className="info-modal-body">
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "var(--outline)" }}>
+                Skopiuj poniższy link, aby przesłać ten przepis znajomym:
+              </p>
+              <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
+                <input
+                  type="text"
+                  readOnly
+                  value={`https://fridge2table.com/przepis/${id || 1}`}
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                    padding: "10px",
+                    borderRadius: "8px",
+                    border: "1px solid var(--outline)",
+                    backgroundColor: "var(--surface)",
+                    color: "var(--on-background)",
+                    fontSize: "13px",
+                    outline: "none"
+                  }}
+                />
+                <button
+                  onClick={handleCopyLink}
+                  style={{
+                    backgroundColor: isCopied ? "#166534" : "var(--primary)",
+                    color: "white",
+                    border: "none",
+                    padding: "0", 
+                    width: "105px",
+                    borderRadius: "8px",
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                    cursor: "pointer",
+                    transition: "background-color 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0
+                  }}
+                >
+                  {isCopied ? "Skopiowano!" : "Kopiuj"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <BottomNav currentTab="przepisy" />
     </div>
