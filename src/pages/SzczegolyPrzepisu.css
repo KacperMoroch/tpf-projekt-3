@@ -3,7 +3,8 @@
   flex-direction: column;
   height: 100vh;
   background-color: var(--background);
-  overflow: hidden; 
+  overflow: hidden;
+  position: relative;
 }
 
 .recipe-topbar-white {
@@ -33,7 +34,7 @@
 .scrollable-content {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 120px; 
+  padding-bottom: 120px;
 }
 
 .sticky-action-bar {
@@ -46,11 +47,11 @@
   z-index: 50;
   display: flex;
   justify-content: center;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .sticky-action-bar * {
-  pointer-events: auto; 
+  pointer-events: auto;
 }
 
 .full-width-btn {
@@ -165,7 +166,7 @@
 
 .list-item-card.active-step {
   border: 2px solid var(--primary);
-  background-color: white; 
+  background-color: white;
 }
 
 .step-checkbox {
@@ -263,11 +264,11 @@
 }
 
 .needed-now-card {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   margin: 16px 0 24px;
-  border: 1px solid #e2e8f0; 
+  border: 1px solid #e2e8f0;
 }
 
 .needed-img {
@@ -290,7 +291,7 @@
   margin: 0;
   padding-left: 20px;
   font-size: 13px;
-  font-weight: normal; 
+  font-weight: normal;
   color: var(--on-background);
   line-height: 1.6;
 }
@@ -323,32 +324,315 @@
   line-height: 1.5;
 }
 
-.rating-section { display: flex; flex-direction: column; align-items: center; margin: 32px 0 24px; color: var(--outline); font-size: 13px; }
-.stars-row { display: flex; gap: 8px; margin-top: 12px; }
-.comments-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--on-background); margin-bottom: 20px; border-top: 1px solid #e2e8f0; padding-top: 24px; }
-.comment-item { display: flex; gap: 12px; margin-bottom: 20px; }
-.comment-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; color: var(--on-background); }
-.comment-content { flex: 1; }
-.comment-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.comment-name { font-weight: 600; font-size: 13px; color: var(--on-background); }
-.comment-time { font-size: 11px; color: var(--outline); }
-.comment-text { font-size: 13px; color: var(--outline); line-height: 1.4; }
-.comment-input-row { display: flex; align-items: center; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 8px 16px; margin-bottom: 24px; }
-.comment-input { flex: 1; background: none; border: none; outline: none; font-size: 14px; padding: 8px 0; }
-.comment-send-btn { background: none; border: none; color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px 0 24px;
+  color: var(--outline);
+  font-size: 13px;
+}
 
-.cooking-mode-screen { position: fixed; inset: 0; background-color: var(--background); z-index: 100; display: flex; flex-direction: column; padding: 20px; }
-.cooking-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-.status-pill { background-color: #dcfce7; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; }
-.cooking-progress { text-align: center; font-size: 12px; font-weight: 700; color: var(--outline); margin-bottom: 12px; }
-.progress-bar-container { width: 100%; height: 4px; background-color: #e2e8f0; border-radius: 2px; margin-bottom: 32px; }
-.progress-bar-fill { height: 100%; background-color: var(--primary); border-radius: 2px; width: 37.5%; }
-.cooking-instruction { font-size: 28px; font-weight: 800; color: var(--on-background); text-align: center; line-height: 1.3; margin-bottom: 40px; }
-.timer-box { background-color: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 20px; display: flex; flex-direction: column; align-items: center; }
-.timer-time { font-size: 48px; font-weight: 800; color: var(--on-background); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-.timer-controls { display: flex; gap: 16px; width: 100%; }
-.btn-pause { flex: 1; background-color: var(--secondary-container); color: var(--on-secondary-container); border: none; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 16px; display: flex; justify-content: center; align-items: center; gap: 8px; }
-.btn-reset { width: 56px; height: 56px; background-color: transparent; border: 1px solid var(--outline); border-radius: 12px; color: var(--outline); display: flex; justify-content: center; align-items: center; }
-.cooking-bottom-nav { margin-top: auto; display: flex; gap: 12px; }
-.btn-prev { flex: 1; background-color: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 16px; border-radius: 12px; font-weight: 700; }
-.btn-next { flex: 1; background-color: var(--primary); border: none; color: white; padding: 16px; border-radius: 12px; font-weight: 700; }
+.stars-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comments-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--on-background);
+  margin-bottom: 20px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 24px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+  color: var(--on-background);
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.comment-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--on-background);
+}
+
+.comment-time {
+  font-size: 11px;
+  color: var(--outline);
+}
+
+.comment-text {
+  font-size: 13px;
+  color: var(--outline);
+  line-height: 1.4;
+}
+
+.comment-input-row { 
+  display: flex; 
+  align-items: center; 
+  background-color: var(--surface); 
+  border: 1px solid var(--primary); 
+  border-radius: 12px; 
+  padding: 8px 16px; 
+  margin-bottom: 24px; 
+}
+
+.comment-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.comment-send-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cooking-mode-screen {
+  position: absolute;
+  inset: 0;
+  background-color: var(--background);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.cooking-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.status-pill { 
+  background-color: #f0fdf4; 
+  color: var(--primary); 
+  border: 1px solid var(--primary); 
+  padding: 6px 12px; 
+  border-radius: 20px; 
+  font-size: 11px; 
+  font-weight: 700; 
+  display: flex; 
+  align-items: center; 
+  gap: 6px; 
+  letter-spacing: 0.5px; 
+}
+
+.cooking-progress {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--outline);
+  margin-bottom: 12px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: #e2e8f0;
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.cooking-instruction {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--on-background);
+  text-align: center;
+  line-height: 1.3;
+  margin-bottom: 40px;
+}
+
+.timer-box {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-time {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--on-background);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.btn-pause {
+  flex: 1;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.timer-text-sm {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 600;
+  max-width: 90px;
+  word-wrap: break-word;
+}
+
+.timer-floating-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  gap: 8px;
+}
+
+
+.btn-reset {
+  width: 56px;
+  height: 56px;
+  background-color: transparent;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  color: var(--outline);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cooking-bottom-nav {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-prev {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-next {
+  flex: 1;
+  background-color: var(--primary);
+  border: none;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.info-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+
+.info-modal-container {
+  background: white;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.info-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.info-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--on-background);
+}
+
+.info-modal-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--outline);
+  cursor: pointer;
+  padding: 4px;
+}

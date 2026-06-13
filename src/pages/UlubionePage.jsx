@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FilterModal from "../components/FilterModal";
 import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
@@ -9,55 +9,58 @@ import TopBar from "../components/TopBar";
 const UlubionePage = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [recipes, setRecipes] = useState([
-    {
-      id: 1,
-      category: "Sałatki",
-      title: "Sałatka Quinoa z Awokado",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&q=80",
-      time: "15 min",
-      calories: "320 kcal",
-    },
-    {
-      id: 2,
-      category: "Zupy",
-      title: "Krem z Pieczonych Pomidorów",
-      image:
-        "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=150&q=80",
-      time: "30 min",
-      calories: "210 kcal",
-    },
-    {
-      id: 3,
-      category: "Dania główne",
-      title: "Łosoś z Szparagami",
-      image:
-        "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=150&q=80",
-      time: "20 min",
-      calories: "450 kcal",
-    },
-    {
-      id: 4,
-      category: "Lunch",
-      title: "Kolorowy Buddha Bowl",
-      image:
-        "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=150&q=80",
-      time: "25 min",
-      calories: "380 kcal",
-    },
-  ]);
-  const [likedRecipes, setLikedRecipes] = useState([1, 2, 3, 4]);
+  const [recipes, setRecipes] = useState([]);
+  const [likedRecipes, setLikedRecipes] = useState([]);
   const [removingId, setRemovingId] = useState(null);
+
+  useEffect(() => {
+    const hardcodedRecipes = [
+      {
+        id: 101,
+        category: "Sałatki",
+        title: "Sałatka Quinoa z Awokado",
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&q=80",
+        time: "15 min",
+        calories: "320 kcal",
+      },
+      {
+        id: 102,
+        category: "Zupy",
+        title: "Krem z Pieczonych Pomidorów",
+        image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=150&q=80",
+        time: "30 min",
+        calories: "210 kcal",
+      },
+      {
+        id: 104,
+        category: "Lunch",
+        title: "Kolorowy Buddha Bowl",
+        image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=150&q=80",
+        time: "25 min",
+        calories: "380 kcal",
+      },
+    ];
+
+    const saved = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    const combined = [...hardcodedRecipes, ...saved];
+    const uniqueRecipes = combined.filter((v, i, a) => a.findIndex(v2 => (v2.id === v.id)) === i);
+
+    setRecipes(uniqueRecipes);
+    setLikedRecipes(uniqueRecipes.map(r => r.id));
+  }, []);
+
   const toggleLike = (id) => {
-    if (likedRecipes.includes(id)) {
-      setLikedRecipes(likedRecipes.filter((recipeId) => recipeId !== id));
-      setTimeout(() => {
-        setRecipes((prev) => prev.filter((r) => r.id !== id));
-      }, 500);
-    } else {
-      setLikedRecipes([...likedRecipes, id]);
-    }
+    setRemovingId(id);
+    setTimeout(() => {
+      setRecipes((prev) => prev.filter((r) => r.id !== id));
+      setLikedRecipes((prev) => prev.filter((recipeId) => recipeId !== id));
+
+      const saved = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+      const newSaved = saved.filter(r => r.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newSaved));
+
+      setRemovingId(null);
+    }, 500);
   };
 
   return (
