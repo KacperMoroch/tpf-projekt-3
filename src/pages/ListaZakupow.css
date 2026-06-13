@@ -230,8 +230,8 @@
   justify-content: center;
   gap: 8px;
   padding: 16px 24px;
-  background-color: var(--ml-warning);
-  color: var(--on-primary);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
   font-size: clamp(14px, 3.8vw, 16px);
   font-weight: 600;
   border: none;

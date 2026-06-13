@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterModal from "../components/FilterModal";
 import Icon from "../components/Icon";
 import BottomNav from "../components/BottomNav";
-import "./ProfilePage.css";
+import "./profil/ProfilePage.css";
 import "./UlubionePage.css";
 import TopBar from "../components/TopBar";
 

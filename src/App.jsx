@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -16,12 +16,16 @@ import MojaLodowka from "./pages/MojaLodowka";
 import SzczegolyPrzepisu from "./pages/SzczegolyPrzepisu";
 import PrzepisyPage from "./pages/PrzepisyPage";
 import UlubionePage from "./pages/UlubionePage";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/profil/ProfilePage";
+import ProfileNotificationsPage from "./pages/profil/ProfileNotificationsPage";
+import ProfileAllergiesPage from "./pages/profil/ProfileAllergiesPage";
+import ProfileEditPage from "./pages/profil/ProfileEditPage";
+import ProfileSupportPage from "./pages/profil/ProfileSupportPage";
 import ListaZakupow from "./pages/ListaZakupow";
 import SkanujParagon from "./pages/SkanujParagon";
 import SkanujKod from "./pages/SkanujKod";
 import DodajRecznie from "./pages/DodajRecznie";
-import NotFoundPage from './pages/NotFoundPage';
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   useEffect(() => {
@@ -81,6 +85,38 @@ function App() {
                 element={
                   <PrivateRoute>
                     <ProfilePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profil/edycja"
+                element={
+                  <PrivateRoute>
+                    <ProfileEditPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profil/alergie"
+                element={
+                  <PrivateRoute>
+                    <ProfileAllergiesPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profil/powiadomienia"
+                element={
+                  <PrivateRoute>
+                    <ProfileNotificationsPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profil/wsparcie"
+                element={
+                  <PrivateRoute>
+                    <ProfileSupportPage />
                   </PrivateRoute>
                 }
               />
