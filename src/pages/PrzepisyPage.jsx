@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FilterModal from "../components/FilterModal";
 import Button from "../components/Button";
 import Icon from "../components/Icon";
@@ -7,9 +8,10 @@ import "./PrzepisyPage.css";
 import TopBar from "../components/TopBar";
 
 const PrzepisyPage = () => {
+  const navigate = useNavigate();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [likedRecipes, setLikedRecipes] = useState([2]);
+  const [likedRecipes, setLikedRecipes] = useState([1]);
 
   const toggleLike = (id) => {
     if (likedRecipes.includes(id)) {
@@ -22,20 +24,18 @@ const PrzepisyPage = () => {
   const recipesData = [
     {
       id: 1,
-      title: "Letnia Sałatka Buddy z Hummusem",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80",
-      matchText: "Masz 90% składników!",
+      title: "Pieczony Łosoś z Cytrusami",
+      image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80",
+      matchText: "Masz wszystkie składniki!",
       matchLevel: "high",
-      time: "15 min",
+      time: "25 min",
       difficulty: "Łatwe",
-      calories: "420 kcal",
+      calories: "450 kcal",
     },
     {
       id: 2,
       title: "Klasyczna Margherita na Cienkim Cieście",
-      image:
-        "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80",
       matchText: "Masz 75% składników",
       matchLevel: "medium",
       time: "45 min",
@@ -44,14 +44,13 @@ const PrzepisyPage = () => {
     },
     {
       id: 3,
-      title: "Łosoś Pieczony z Szparagami",
-      image:
-        "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80",
-      matchText: "Masz wszystkie składniki!",
+      title: "Letnia Sałatka Buddy z Hummusem",
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80",
+      matchText: "Masz 90% składników!",
       matchLevel: "high",
-      time: "25 min",
+      time: "15 min",
       difficulty: "Łatwe",
-      calories: "380 kcal",
+      calories: "420 kcal",
     },
   ];
 
@@ -96,7 +95,12 @@ const PrzepisyPage = () => {
 
         <div className="recipes-grid">
           {filteredRecipes.map((recipe, index) => (
-            <div className="recipe-card" key={recipe.id}>
+            <div 
+              className="recipe-card" 
+              key={recipe.id}
+              onClick={() => navigate(`/przepis/${recipe.id}`)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className="recipe-image-container">
                 <img
                   src={recipe.image}
@@ -120,7 +124,10 @@ const PrzepisyPage = () => {
                   <h4 className="recipe-title">{recipe.title}</h4>
                   <button
                     className={`heart-btn ${likedRecipes.includes(recipe.id) ? "liked" : ""}`}
-                    onClick={() => toggleLike(recipe.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleLike(recipe.id);
+                    }}
                   >
                     <Icon
                       name="favorites"
